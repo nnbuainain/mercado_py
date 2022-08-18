@@ -10,7 +10,7 @@ class Cart():
 
     @property
     def total(self):
-        #self.__total = 0
+        self.__total = 0
         for product in self.__cart_products:
             self.__total += product['total_price']
         return self.__total
@@ -27,3 +27,7 @@ class Cart():
             
         else:
             print('\n ########## There is no product in the cart yet ##########')
+    
+    def __del__(self):
+        print('The cart was cleared successfully')
+        

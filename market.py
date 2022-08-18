@@ -27,19 +27,11 @@ def main():
 
         if option == 1:
             
-            name, price = register_product()
-            
-            new_product = Product(name, price)
-            
-            product_list.append(new_product)
-        
-            print(f'\nThe product: {new_product.name} was registered successfully')
+            register_product(product_list)
 
         elif option == 2:
                 
             if len(product_list) != 0:
-
-                print('\n ########## List of products ##########')
                 
                 list_products(product_list)
 
@@ -47,8 +39,7 @@ def main():
                 print('\n ########## There is no product registered yet ##########')
         
         elif option == 3:
-            if len(product_list) != 0:
-                print('\n ########## List of products ##########')
+            if len(product_list) > 0:
                 
                 list_products(product_list)
 
@@ -79,10 +70,25 @@ def main():
                     print('\n ########## Invalid code ##########')
         
         elif option == 4:
-            if len(cart_list) != 0:
+            if len(cart_list) > 0:
                 print('\n ########## List of products in the cart ##########')
-                
+
                 cart.show_cart()
+
+            else:
+                print('\n ########## Your cart is currently empty ##########')
+        
+        elif option == 5:
+            print('\n ########## Checkout ##########')
+            
+            if len(cart_list) > 0:
+                print(f'\n The total amount to be paid is: {cart.total}')
+
+                print(f'\n Purchase successfully completed')
+
+                del cart
+
+                cart_list.clear()
             
             else:
                 print('\n ########## Your cart is currently empty ##########')

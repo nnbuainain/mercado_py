@@ -19,11 +19,19 @@ class Product():
     def price(self):
         return self.__price
 
-def register_product():
+def register_product(product_list):
     name = input('Enter the product name: ')
+
     price = float(input('Enter the product value: '))
-    return name, price
+
+    new_product = Product(name, price)
+        
+    product_list.append(new_product)
+    
+    print(f'\nThe product: {new_product.name} was registered successfully')
+    
 
 def list_products(product_list):
+    print('\n ########## List of products ##########')
     for product in product_list:
         print(f'Code: {product.code}\t Name: {product.name}\t Price: {product.price}')
