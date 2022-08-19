@@ -5,7 +5,7 @@ from models.cart import Cart, add_product_to_cart
 product_list = []
 cart_list = []
 
-def menu():
+def menu() -> bool:
     print('\n ########## Welcome to my E-Commerce ##########')
     print(' ###### Select one of the options below #######')
     print('\n 1 - Register product')
@@ -15,7 +15,7 @@ def menu():
     print('\n 5 - Checkout')
     print('\n 6 - Exit')
 
-def checkout(cart, cart_list):
+def checkout(cart: Cart, cart_list: list) -> bool:
     print(f'\n The total amount to be paid is: {cart.total}')
 
     print(f'\n Purchase successfully completed')
@@ -24,7 +24,7 @@ def checkout(cart, cart_list):
 
     cart_list.clear()
 
-def main():
+def main() -> bool:
     option = None
     
     while option != 6:

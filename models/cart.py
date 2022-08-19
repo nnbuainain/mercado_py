@@ -1,6 +1,6 @@
 class Cart():
     
-    def __init__(self, cart_products):
+    def __init__(self, cart_products: list):
         self.__cart_products = cart_products
         self.__total = 0
     
@@ -17,7 +17,7 @@ class Cart():
         
         return self.__total
 
-    def show_cart(self):
+    def show_cart(self) -> bool:
         print('\n ########## List of products in the cart ##########')
         
         if len(self.__cart_products) != 0:
@@ -33,7 +33,7 @@ class Cart():
             print('\n ########## There is no product in the cart yet ##########')
     
 
-def add_product_to_cart(product_list, cart_list):
+def add_product_to_cart(product_list: list, cart_list: list) -> Cart:
     try:
         code = int(input('\n Enter the code of the product you would like to buy:'))
     
@@ -84,5 +84,5 @@ def add_product_to_cart(product_list, cart_list):
         else:
             print('\n ########## Code not found in list of product ##########')
 
-def __del__(self):
+def __del__(self) -> bool:
     print('The cart was cleared successfully')

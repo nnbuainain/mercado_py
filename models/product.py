@@ -1,6 +1,3 @@
-from unittest import registerResult
-
-
 class Product():
     code_generator = 0
 
@@ -22,7 +19,7 @@ class Product():
     def price(self):
         return self.__price
 
-def register_product(product_list):
+def register_product(product_list: list) -> bool:
     name = input('Enter the product name: ')
 
     if name == '':
@@ -45,7 +42,7 @@ def register_product(product_list):
                 print(f'\n########## The product: {new_product.name} was registered successfully ########## ')
                 break    
 
-def list_products(product_list):
+def list_products(product_list: list) -> bool:
     print('\n ########## List of products ##########')
     
     for product in product_list:
