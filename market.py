@@ -1,7 +1,6 @@
 from numpy import prod, product
 from product import Product, register_product, list_products
-from cart import Cart
-import json
+from cart import Cart, add_product_to_cart
 
 product_list = []
 cart_list = []
@@ -16,89 +15,71 @@ def menu():
     print('\n 5 - Checkout')
     print('\n 6 - Exit')
 
-def main():
+def checkout(cart, cart_list):
+    print(f'\n The total amount to be paid is: {cart.total}')
 
+    print(f'\n Purchase successfully completed')
+
+    del cart
+
+    cart_list.clear()
+
+def main():
     option = None
     
     while option != 6:
         menu()
         
-        option = int(input('\n Enter the option: '))
-
-        if option == 1:
-            
-            register_product(product_list)
-
-        elif option == 2:
-                
-            if len(product_list) != 0:
-                
-                list_products(product_list)
-
-            else:
-                print('\n ########## There is no product registered yet ##########')
+        try:
+            option = int(input('\n Enter the option: '))
         
-        elif option == 3:
-            if len(product_list) > 0:
-                
-                list_products(product_list)
+        except ValueError:
+            print('\n########## Enter a valid option ########## ')
+        
+        else:
+            if option == 1:
+                register_product(product_list)
 
-                code = int(input('\n Enter the code of the product you would like to buy: '))
+            elif option == 2: 
+                if len(product_list) != 0:
+                    list_products(product_list)
 
-                if code in [product.code for product in product_list]:
-                    product_quantity = int(input('\n Enter the quantity of the product you would like to buy: '))
+                else:
+                    print('\n ########## There is no product registered yet ##########')
+            
+            elif option == 3:
+                if len(product_list) > 0:
+                    list_products(product_list)
                     
-                    new_product = [{'code' : product.code, 'name' : product.name, \
-                                    'quantity' : product_quantity, 'unit_price' : product.price, \
-                                    'total_price' : product.price * product_quantity} \
-                                    for product in product_list if product.code == code][0]
-                    
-                    if new_product['code'] not in [product['code'] for product in cart_list]:
-                        cart_list.append(new_product)
-                        cart = Cart(cart_list)
-                        print(f"\n {new_product['name']} (qtd: {new_product['quantity']}) was added to the cart successfully")
-                    
-                    else:
-                        for product in cart_list:
-                            if product['code'] == new_product['code']:
-                                product['quantity'] += new_product['quantity']
-                                product['total_price'] += new_product['total_price']
-                                cart = Cart(cart_list)
-                                print(f"\n {new_product['name']} (qtd: {new_product['quantity']}) was added to the cart successfully")      
+                    cart = add_product_to_cart(product_list, cart_list)
                 
                 else:
-                    print('\n ########## Invalid code ##########')
-        
-        elif option == 4:
-            if len(cart_list) > 0:
-                print('\n ########## List of products in the cart ##########')
+                    print('\n ########## There are no products available to be bought ##########')
+                    print('\n ########## Register a new product first ##########')
 
-                cart.show_cart()
+            elif option == 4:
+                if len(cart_list) > 0:
+                    
+                    cart.show_cart()
+
+                else:
+                    print('\n ########## Your cart is currently empty ##########')
+            
+            elif option == 5:
+                print('\n ########## Checkout ##########')
+                
+                if len(cart_list) > 0:
+                    checkout(cart, cart_list)
+                
+                else:
+                    print('\n ########## Your cart is currently empty ##########')
+
+            elif option == 6:
+                print('\n ########## Thank you for using our E-Commerce ##########')
+                break        
 
             else:
-                print('\n ########## Your cart is currently empty ##########')
-        
-        elif option == 5:
-            print('\n ########## Checkout ##########')
-            
-            if len(cart_list) > 0:
-                print(f'\n The total amount to be paid is: {cart.total}')
-
-                print(f'\n Purchase successfully completed')
-
-                del cart
-
-                cart_list.clear()
-            
-            else:
-                print('\n ########## Your cart is currently empty ##########')
-
-        elif option == 6:
-            print('\n ########## Thank you for using our E-Commerce ##########')
-            break        
-
-        else:
-            print(f'\n ########## Invalid code, please type an option between 1 and 6 ##########')
+                print(f'\n ########## Please type an option between 1 and 6 ##########')
         
     print(f'\nExiting the system...\n')
 
