@@ -1,6 +1,6 @@
 from numpy import prod, product
-from product import Product, register_product, list_products
-from cart import Cart, add_product_to_cart
+from models.product import Product, register_product, list_products
+from models.cart import Cart, add_product_to_cart
 
 product_list = []
 cart_list = []
